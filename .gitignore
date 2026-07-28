@@ -1,0 +1,16 @@
+.entities/
+.local/
+.objects/
+.screenshots/
+.settings/
+.templates/
+.tmh/
+.variations/
+################################################################################
+# Added by UiPath Studio
+# Prevent caching and local artifacts from being committed
+################################################################################
+.local
+################################################################################
+# End of UiPath Studio common ignores
+################################################################################
