@@ -8,6 +8,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Transaction ID used for information and logging purposes. Ideally, the ID should be unique for each transaction. " Name="out_TransactionID" Type="OutArgument(x:String)" />
     <x:Property sap2010:Annotation.AnnotationText="This variable can be used in case transactions are stored in a DataTable (for example, after being retrieved from a spreadsheet)." Name="io_dt_TransactionData" Type="InOutArgument(sd:DataTable)" />
     <x:Property Name="in_maximumTransactionNumberToProcess" Type="InArgument(x:Int32)" />
+    <x:Property Name="io_TodRowIndex" Type="InOutArgument(x:Int32)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
@@ -132,13 +133,14 @@
       <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Get a transaction item from a specified source (e.g., Orchestrator queues, spreadsheets, databases, mailboxes or web APIs). &#xA;&#xA;If there are no transaction items remaining, out_TransactionItem is set to Nothing, which leads to the End Process state. &#xA;&#xA;For cases in which there is only a single transaction (i.e., a linear process), use an If activity to check whether the argument in_TransactionNumber has the value 1 (meaning it is the first and only transaction) and assign the transaction item to out_TransactionItem. For any other value of in_TransactionNumber, out_TransactionItem should be set to Nothing.&#xA;&#xA;If there are multiple transactions, use the argument in_TransactionNumber as an index to retrieve the correct transaction to be processed. If there are no more transactions left, it is necessary to set out_TransactionItem to Nothing, thus ending the process." DisplayName="Get Transaction Data" sap:VirtualizedContainerService.HintSize="806,4575.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Get a transaction item from a specified source (e.g., Orchestrator queues, spreadsheets, databases, mailboxes or web APIs). &#xA;&#xA;If there are no transaction items remaining, out_TransactionItem is set to Nothing, which leads to the End Process state. &#xA;&#xA;For cases in which there is only a single transaction (i.e., a linear process), use an If activity to check whether the argument in_TransactionNumber has the value 1 (meaning it is the first and only transaction) and assign the transaction item to out_TransactionItem. For any other value of in_TransactionNumber, out_TransactionItem should be set to Nothing.&#xA;&#xA;If there are multiple transactions, use the argument in_TransactionNumber as an index to retrieve the correct transaction to be processed. If there are no more transactions left, it is necessary to set out_TransactionItem to Nothing, thus ending the process." DisplayName="Get Transaction Data" sap:VirtualizedContainerService.HintSize="882,8192.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="strID" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="intMaxValue" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="intValue" />
       <Variable x:TypeArguments="x:String" Name="strRowText" />
       <Variable x:TypeArguments="x:Boolean" Name="boolFound" />
+      <Variable x:TypeArguments="ui:UiElement" Name="uiCurrentRow" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -146,8 +148,8 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message Get Transaction Item" sap:VirtualizedContainerService.HintSize="522.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Get the transaction item&quot;]" />
-    <Assign DisplayName="Assign TransactionItem to Nothing" sap:VirtualizedContainerService.HintSize="522.4,174.4" sap2010:WorkflowViewState.IdRef="Assign_19">
+    <ui:LogMessage DisplayName="Log Message Get Transaction Item" sap:VirtualizedContainerService.HintSize="590.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Get the transaction item&quot;]" />
+    <Assign DisplayName="Assign TransactionItem to Nothing" sap:VirtualizedContainerService.HintSize="590.4,174.4" sap2010:WorkflowViewState.IdRef="Assign_19">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_TransactionItem]</OutArgument>
       </Assign.To>
@@ -155,7 +157,7 @@
         <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="522.4,174.4" sap2010:WorkflowViewState.IdRef="Assign_23">
+    <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="590.4,174.4" sap2010:WorkflowViewState.IdRef="Assign_23">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Boolean">[boolFound]</OutArgument>
       </Assign.To>
@@ -163,13 +165,13 @@
         <InArgument x:TypeArguments="x:Boolean">False</InArgument>
       </Assign.Value>
     </Assign>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="AKDB - S-Umgebung_(RHEL_8) Benutzer dv.000012" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="522.4,2833.6" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" ScopeGuid="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V2">
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="AKDB - S-Umgebung_(RHEL_8) Benutzer dv.000012" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="590.4,6451.2" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" ScopeGuid="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V2">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Ausführen" sap:VirtualizedContainerService.HintSize="520,2579.2" sap2010:WorkflowViewState.IdRef="Sequence_14">
+          <Sequence DisplayName="Ausführen" sap:VirtualizedContainerService.HintSize="588.8,6196.8" sap2010:WorkflowViewState.IdRef="Sequence_14">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="strMaxElements" />
               <Variable x:TypeArguments="x:String" Name="strTextout" />
@@ -182,8 +184,8 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="486.4,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_8" Message="[&quot;Anzahl Elemente: &quot; &amp;&#xD;&#xA;If(uiRows Is Nothing, &quot;0&quot;, uiRows.Count().ToString())]" />
-            <ui:FindChildren Children="[uiRows]" DisplayName="Find Children 'list'" Filter="&lt;ctrl role='list item' /&gt;" sap:VirtualizedContainerService.HintSize="486.4,143.2" sap2010:WorkflowViewState.IdRef="FindChildren_1" Scope="FIND_DESCENDANTS">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="555.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_8" Message="[&quot;Anzahl Elemente: &quot; &amp;&#xA;If(uiRows Is Nothing, &quot;0&quot;, uiRows.Count().ToString())]" />
+            <ui:FindChildren Children="[uiRows]" DisplayName="Find Children 'list'" Filter="&lt;ctrl role='list item' /&gt;" sap:VirtualizedContainerService.HintSize="555.2,143.2" sap2010:WorkflowViewState.IdRef="FindChildren_1" Scope="FIND_DESCENDANTS">
               <ui:FindChildren.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b3f54814-d2c0-4fe7-ad62-216a3c4a35d6" InformativeScreenshot="c69aa3a9c4d505501c00c9c6432e371d" Selector="&lt;wnd cls='UniMDIForm' title='*E02T080*' /&gt;&#xA;&lt;wnd cls='SysListView32' title='ListView' /&gt;">
                   <ui:Target.TimeoutMS>
@@ -195,85 +197,324 @@
                 </ui:Target>
               </ui:FindChildren.Target>
             </ui:FindChildren>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="486.4,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_13" Message="[&quot;Gefundene Tabellenzeilen: &quot; &amp;&#xA;If(uiRows Is Nothing,&#xA;   &quot;Nothing&quot;,&#xA;   uiRows.Count().ToString())]" />
-            <ui:ForEach x:TypeArguments="ui:UiElement" CurrentIndex="{x:Null}" DisplayName="For Each uiRow" sap:VirtualizedContainerService.HintSize="486.4,2015.2" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[uiRows]">
-              <ui:ForEach.Body>
-                <ActivityAction x:TypeArguments="ui:UiElement">
-                  <ActivityAction.Argument>
-                    <DelegateInArgument x:TypeArguments="ui:UiElement" Name="uiRow" />
-                  </ActivityAction.Argument>
-                  <Sequence DisplayName="Hauptteil" sap:VirtualizedContainerService.HintSize="484.8,1893.6" sap2010:WorkflowViewState.IdRef="Sequence_20">
-                    <Sequence.Variables>
-                      <Variable x:TypeArguments="s:String[]" Name="arrColumns" />
-                      <Variable x:TypeArguments="x:String" Name="strRowText" />
-                    </Sequence.Variables>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="555.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_13" Message="[&quot;Gefundene Tabellenzeilen: &quot; &amp;&#xA;If(uiRows Is Nothing,&#xA;   &quot;Nothing&quot;,&#xA;   uiRows.Count().ToString())]" />
+            <ui:InterruptibleWhile CurrentIndex="{x:Null}" DisplayName="While" sap:VirtualizedContainerService.HintSize="555.2,2999.2" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+              <ui:InterruptibleWhile.Body>
+                <Sequence DisplayName="Text" sap:VirtualizedContainerService.HintSize="484.8,2864.8" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="s:String[]" Name="arrColumns" />
+                    <Variable x:TypeArguments="x:String" Name="arrExcludedStreets" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="Assign_25">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="ui:UiElement">[uiCurrentRow]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="ui:UiElement">[uiRows.ElementAt(io_TodRowIndex)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <uix:NGetText DisplayName="Get Text" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,126.4" sap2010:WorkflowViewState.IdRef="NGetText_7" InUiElement="[uiCurrentRow]" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" ScrapingMethod="Fulltext" ScrapingOptions="None" TextString="[strRowText]" Version="V5">
+                    <uix:NGetText.Target>
+                      <uix:TargetAnchorable ContentHash="TPDgj3oiX0uGLUAVYNNR3w" DesignTimeRectangle="-625, 128, 3645, 20" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;&lt;ctrl name='*' role='list item' /&gt;" Guid="ba8eafee-83ca-4989-be50-5a268ab1ad44" InformativeScreenshot="1cb390c2e5ea14c550858d273c77246d.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/vRJSJiw1qEGVcrJovE-3Ow" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                    </uix:NGetText.Target>
+                  </uix:NGetText>
+                  <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="Assign_26">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[arrColumns]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[strRowText.Split(ControlChars.Tab)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_18" Message="[&quot;Zeile: &quot; &amp; strRowText]" />
+                  <If Condition="[arrColumns.Length &gt;= 25 AndAlso&#xD;&#xA;Not String.IsNullOrWhiteSpace(arrColumns(7)) AndAlso&#xD;&#xA;arrColumns(8).Trim.Equals(&quot;identifiziert&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xD;&#xA;arrColumns(11).Trim.Equals(&quot;A&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xD;&#xA;arrColumns(18).Trim.Equals(&quot;noch nicht übernommen&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xD;&#xA;arrColumns(24).Trim.Equals(&quot;Aktiv&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xD;&#xA;Not arrColumns(4).Trim.Equals(&quot;333BS&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xD;&#xA;Not arrColumns(4).Trim.Equals(&quot;332AV&quot;, StringComparison.OrdinalIgnoreCase)]" sap:VirtualizedContainerService.HintSize="451.2,2139.2" sap2010:WorkflowViewState.IdRef="If_8">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <uix:NGetText DisplayName="Get Text" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,126.4" sap2010:WorkflowViewState.IdRef="NGetText_6" InUiElement="[uiRow]" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" ScrapingMethod="Fulltext" ScrapingOptions="None" TextString="[strRowText]" Version="V5">
-                      <uix:NGetText.Target>
-                        <uix:TargetAnchorable ContentHash="TPDgj3oiX0uGLUAVYNNR3w" DesignTimeRectangle="-625, 128, 3645, 20" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;&lt;ctrl name='*' role='list item' /&gt;" Guid="ba8eafee-83ca-4989-be50-5a268ab1ad44" InformativeScreenshot="1cb390c2e5ea14c550858d273c77246d.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/vRJSJiw1qEGVcrJovE-3Ow" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
-                      </uix:NGetText.Target>
-                    </uix:NGetText>
-                    <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="Assign_20">
-                      <Assign.To>
-                        <OutArgument x:TypeArguments="s:String[]">[arrColumns]</OutArgument>
-                      </Assign.To>
-                      <Assign.Value>
-                        <InArgument x:TypeArguments="s:String[]">[strRowText.Split(ControlChars.Tab)]</InArgument>
-                      </Assign.Value>
-                    </Assign>
-                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_14" Message="[&quot;Zeile: &quot; &amp; strRowText]" />
-                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_15" Message="[&quot;Spalten: &quot; &amp; arrColumns.Length.ToString]" />
-                    <If Condition="[arrColumns.Length &gt;= 25 AndAlso&#xA;Not String.IsNullOrWhiteSpace(arrColumns(7)) AndAlso&#xA;arrColumns(8).Trim.Equals(&quot;identifiziert&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(11).Trim.Equals(&quot;A&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(18).Trim.Equals(&quot;noch nicht übernommen&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(24).Trim.Equals(&quot;Aktiv&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;Not arrColumns(4).Trim.Equals(&quot;333BS&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;Not arrColumns(4).Trim.Equals(&quot;332AV&quot;, StringComparison.OrdinalIgnoreCase)]" sap:VirtualizedContainerService.HintSize="451.2,1168" sap2010:WorkflowViewState.IdRef="If_7">
-                      <If.Then>
-                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,808.8" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                    <If.Then>
+                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,890.4" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_28">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strID]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[arrColumns(7).Trim]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_19" Message="[&quot;Aktuelle Fallnummer: &quot; &amp; strID]" />
+                        <Assign DisplayName="Assign TransactionItem" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_29">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[out_TransactionItem]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[strID]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_30">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Int32">[io_TodRowIndex]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Int32">[io_TodRowIndex + 1]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="416,60.8" sap2010:WorkflowViewState.IdRef="CommentOut_8">
+                          <ui:CommentOut.Body>
+                            <Sequence DisplayName="Ignorierte Aktivitäten" sap:VirtualizedContainerService.HintSize="484.8,1219.2" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <uix:NCheckState DisplayName="Check App State 'UniLabel'" HealingAgentBehavior="Disabled" sap:VirtualizedContainerService.HintSize="451.2,1159.2" sap2010:WorkflowViewState.IdRef="NCheckState_1" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V5">
+                                <uix:NCheckState.Exists>
+                                  <OutArgument x:TypeArguments="x:Boolean" />
+                                </uix:NCheckState.Exists>
+                                <uix:NCheckState.IfExists>
+                                  <Sequence DisplayName="Ziel wird angezeigt" sap:VirtualizedContainerService.HintSize="449.6,116" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:Break sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Break_2" />
+                                  </Sequence>
+                                </uix:NCheckState.IfExists>
+                                <uix:NCheckState.IfNotExists>
+                                  <Sequence DisplayName="Ziel wird nicht angezeigt" sap:VirtualizedContainerService.HintSize="449.6,758.4" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <uix:NSetFocus DisplayName="Set Focus 'list'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,146.4" sap2010:WorkflowViewState.IdRef="NSetFocus_1" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V5">
+                                      <uix:NSetFocus.Target>
+                                        <uix:TargetAnchorable ContentHash="I9VvhKIAwkaVx3fbtG7EDg" DesignTimeRectangle="5, 104, 1910, 472" ElementType="List" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;&lt;ctrl role='list' /&gt;" Guid="f91d4f38-5939-4be7-9660-fb9a1f552934" InformativeScreenshot="4878b6e5f0e030c26b0391a9659d1235.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/SoQYR3ZUS02LoyrOBQSPZQ" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                                      </uix:NSetFocus.Target>
+                                    </uix:NSetFocus>
+                                    <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts 'SysListView32(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,496" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_2" InteractionMode="HardwareEvents" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Shortcuts="[d(hk)][k(Down)][u(hk)]" Version="V5">
+                                      <uix:NKeyboardShortcuts.DelayAfter>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:NKeyboardShortcuts.DelayAfter>
+                                      <uix:NKeyboardShortcuts.DelayBefore>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:NKeyboardShortcuts.DelayBefore>
+                                      <uix:NKeyboardShortcuts.DelayBetweenKeys>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:NKeyboardShortcuts.DelayBetweenKeys>
+                                      <uix:NKeyboardShortcuts.DelayBetweenShortcuts>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:NKeyboardShortcuts.DelayBetweenShortcuts>
+                                      <uix:NKeyboardShortcuts.InUiElement>
+                                        <InArgument x:TypeArguments="ui:UiElement" />
+                                      </uix:NKeyboardShortcuts.InUiElement>
+                                      <uix:NKeyboardShortcuts.OutUiElement>
+                                        <OutArgument x:TypeArguments="ui:UiElement" />
+                                      </uix:NKeyboardShortcuts.OutUiElement>
+                                      <uix:NKeyboardShortcuts.Target>
+                                        <uix:TargetAnchorable ContentHash="zpfFRD4w60mEzFlFDeAFZA" DesignTimeRectangle="2, 101, 1916, 495" ElementType="List" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;" Guid="520ce4fb-1e27-47d5-8ae0-19b6370f8df5" InformativeScreenshot="74eb1489f61e12781e82e35121e605a4.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/VZSgXs8nQ022hVRmRzmdqg" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                                      </uix:NKeyboardShortcuts.Target>
+                                      <uix:NKeyboardShortcuts.Timeout>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:NKeyboardShortcuts.Timeout>
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                    </uix:NKeyboardShortcuts>
+                                    <ui:Continue sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Continue_1" />
+                                  </Sequence>
+                                </uix:NCheckState.IfNotExists>
+                                <uix:NCheckState.OutUiElement>
+                                  <OutArgument x:TypeArguments="ui:UiElement" />
+                                </uix:NCheckState.OutUiElement>
+                                <uix:NCheckState.Target>
+                                  <uix:TargetAnchorable ContentHash="P7yQxxN3zkqPkKb9mkYA4Q" DesignTimeRectangle="1447, 814, 470, 26" ElementType="DropDown" ElementVisibilityArgument="Interactive" Guid="3d19771b-550c-4c43-b35a-f3ae1f0dcf9c" ImageAccuracyArgument="1" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAdYAAAAaCAYAAAAKR30hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANESURBVHhe7ZrNjeQgEEYdkpPxrfOw1IE4iz46h+3bSr2JdASs/DtQQBloxh5p3ic9aYrCVNkHvsHu5t/fPwYAAADq0MgBAAAAKGc31vv9DgAAAIUEjRUhhBBC+VKN9fV6AQAA/ApqCWMFAAA41VjH3rRNY9p+dJuYxzszBJo7hVr1U9dJnZfNaPq2Md0gxwEA4ExqKdlYG2kq32Y0iZxdX6un5bw5g+ka20gxVgCAn0AtJRprZ/q+dU+tKWbynZxdX6un5Q7BWAEAfgK1lGysw2wAlnnYZjJ0pplPtT6zYVjmvI37Jr1d05p+tG7WyVkGtNW3akfNSasvTTG73nICDfYu6gef3Was3de67mt3e32xRtuZrl3HtXv07svuc63fW/lucOdPcfbcg961XgEALqCWMox1NdBt45RmobFuvPvmOZvTdq14Narl7JrbZr7141yXUd+5j8J6R89C5p14Maum7c3o9eCeZsfJiLZ5az9ur5F7lPfl5ML13TqbEefP1XoP9woAcA21lGes82a5bpzSLDScDTdkWPY602a9zp023H0Tz1hTos21/y6tp9UO5b1n6p62h84+CUaeTbAfGcf6s9bx6muxlhOxVlPrFQDgImJ6Pp9yaFcol2msayw3/cRXwUFj8czsa3N2TjkSbU2JzEVMp7iezElk3omlOa19yFesO5F/bLRYecZ+fS3WciL+pHcAgAsI6f1+m9vtZh6Ph0zNY1NummMr31jXE9XynS1xM5RrqKaUc2KNrCmRuVj90noyJ5F5J5bmtDzf+TWpvC55zaP+rjixWsicjAEALiCmkLnGTHVSkbEuY+IHKRpyDSfWvv+FvnkWnHpkLmo6hfXsebJ2YN35RLqvtZiR/P4YNDKvZqQfL9aesWKOXqzlZPxB7wAAF6DJNlfNVCeVGatnDgfINYKxeF0YzEU26lCcWj+Yy623mqM9X7A8r2VO2/emk8aW9Ktg5btkUhxYRxqgGmu5UFzYOwDABRxpM1fNVCcdGysAAMAvIEWToWqmOgljBQAASDTWFGGsAAAAGCsAAEBdagljBQAAwFgBAADqUkuqsSKEEEIoT1FjBQAAgDI8YwUAAIDPwVgBAAAq8h/vvPsX0rxG0wAAAABJRU5ErkJggg==" InformativeScreenshot="2c8ed4a901a69e3fb8ee1574a8166d4b.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/8oc0hvpwnkqHZV5Ejb5HlQ" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Image" Version="V6" WaitForReadyArgument="Interactive" />
+                                </uix:NCheckState.Target>
+                                <uix:NCheckState.Timeout>
+                                  <InArgument x:TypeArguments="x:Double" />
+                                </uix:NCheckState.Timeout>
+                              </uix:NCheckState>
+                            </Sequence>
+                          </ui:CommentOut.Body>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:CommentOut>
+                        <ui:Break sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Break_3" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,1115.2" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_20" Message="[&quot;Übersprungen: &quot; &amp;&#xA;If(arrColumns.Length &gt; 5, arrColumns(5).Trim, &quot;?&quot;) &amp;&#xA;&quot; | AZR='&quot; &amp;&#xA;If(arrColumns.Length &gt; 7, arrColumns(7).Trim, &quot;&quot;) &amp;&#xA;&quot;'&quot;]" />
+                        <uix:NSetFocus DisplayName="Set Focus 'list'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,146.4" sap2010:WorkflowViewState.IdRef="NSetFocus_2" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V5">
+                          <uix:NSetFocus.Target>
+                            <uix:TargetAnchorable ContentHash="I9VvhKIAwkaVx3fbtG7EDg" DesignTimeRectangle="5, 104, 1910, 472" ElementType="List" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;&lt;ctrl role='list' /&gt;" Guid="f91d4f38-5939-4be7-9660-fb9a1f552934" InformativeScreenshot="4878b6e5f0e030c26b0391a9659d1235.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/SoQYR3ZUS02LoyrOBQSPZQ" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                          </uix:NSetFocus.Target>
+                        </uix:NSetFocus>
+                        <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts 'SysListView32(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,496" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_3" InteractionMode="HardwareEvents" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Shortcuts="[d(hk)][k(Down)][u(hk)]" Version="V5">
+                          <uix:NKeyboardShortcuts.DelayAfter>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:NKeyboardShortcuts.DelayAfter>
+                          <uix:NKeyboardShortcuts.DelayBefore>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:NKeyboardShortcuts.DelayBefore>
+                          <uix:NKeyboardShortcuts.DelayBetweenKeys>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:NKeyboardShortcuts.DelayBetweenKeys>
+                          <uix:NKeyboardShortcuts.DelayBetweenShortcuts>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:NKeyboardShortcuts.DelayBetweenShortcuts>
+                          <uix:NKeyboardShortcuts.InUiElement>
+                            <InArgument x:TypeArguments="ui:UiElement" />
+                          </uix:NKeyboardShortcuts.InUiElement>
+                          <uix:NKeyboardShortcuts.OutUiElement>
+                            <OutArgument x:TypeArguments="ui:UiElement" />
+                          </uix:NKeyboardShortcuts.OutUiElement>
+                          <uix:NKeyboardShortcuts.Target>
+                            <uix:TargetAnchorable ContentHash="zpfFRD4w60mEzFlFDeAFZA" DesignTimeRectangle="2, 101, 1916, 495" ElementType="List" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;" Guid="520ce4fb-1e27-47d5-8ae0-19b6370f8df5" InformativeScreenshot="74eb1489f61e12781e82e35121e605a4.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/VZSgXs8nQ022hVRmRzmdqg" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                          </uix:NKeyboardShortcuts.Target>
+                          <uix:NKeyboardShortcuts.Timeout>
+                            <InArgument x:TypeArguments="x:Double" />
+                          </uix:NKeyboardShortcuts.Timeout>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </uix:NKeyboardShortcuts>
+                        <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_32">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Int32">[io_TodRowIndex]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Int32">[io_TodRowIndex + 1]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:Continue sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Continue_2" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ui:InterruptibleWhile.Body>
+              <ui:InterruptibleWhile.Condition>
+                <VisualBasicValue x:TypeArguments="x:Boolean" DisplayName="Visual basic value" ExpressionText="io_TodRowIndex &lt; uiRows.Count()" />
+              </ui:InterruptibleWhile.Condition>
+            </ui:InterruptibleWhile>
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="555.2,2633.6" sap2010:WorkflowViewState.IdRef="CommentOut_7">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignorierte Aktivitäten" sap:VirtualizedContainerService.HintSize="520,2528" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:ForEach x:TypeArguments="ui:UiElement" CurrentIndex="{x:Null}" DisplayName="For Each uiRow" sap:VirtualizedContainerService.HintSize="486.4,2468" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[uiRows]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="ui:UiElement">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="ui:UiElement" Name="uiRow" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Hauptteil" sap:VirtualizedContainerService.HintSize="484.8,2346.4" sap2010:WorkflowViewState.IdRef="Sequence_20">
                           <Sequence.Variables>
-                            <Variable x:TypeArguments="x:String" Name="uiCurrentRow" />
+                            <Variable x:TypeArguments="s:String[]" Name="arrColumns" />
+                            <Variable x:TypeArguments="x:String" Name="strRowText" />
                           </Sequence.Variables>
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_22">
+                          <uix:NGetText DisplayName="Get Text" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,126.4" sap2010:WorkflowViewState.IdRef="NGetText_6" InUiElement="[uiRow]" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" ScrapingMethod="Fulltext" ScrapingOptions="None" TextString="[strRowText]" Version="V5">
+                            <uix:NGetText.Target>
+                              <uix:TargetAnchorable ContentHash="TPDgj3oiX0uGLUAVYNNR3w" DesignTimeRectangle="-625, 128, 3645, 20" ElementType="ListItem" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='SysListView32' title='ListView' /&gt;&lt;ctrl name='*' role='list item' /&gt;" Guid="ba8eafee-83ca-4989-be50-5a268ab1ad44" InformativeScreenshot="1cb390c2e5ea14c550858d273c77246d.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/vRJSJiw1qEGVcrJovE-3Ow" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                            </uix:NGetText.Target>
+                          </uix:NGetText>
+                          <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="Assign_20">
                             <Assign.To>
-                              <OutArgument x:TypeArguments="x:String">[strID]</OutArgument>
+                              <OutArgument x:TypeArguments="s:String[]">[arrColumns]</OutArgument>
                             </Assign.To>
                             <Assign.Value>
-                              <InArgument x:TypeArguments="x:String">[arrColumns(7).Trim]</InArgument>
+                              <InArgument x:TypeArguments="s:String[]">[strRowText.Split(ControlChars.Tab)]</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_16" Message="[&quot;Aktuelle Fallnummer: &quot; &amp; strID]" />
-                          <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,173.6" sap2010:WorkflowViewState.IdRef="NClick_1" InUiElement="[uiRow]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V5" />
-                          <Assign DisplayName="Assign TransactionItem" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_24">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="x:String">[out_TransactionItem]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="x:String">[strID]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                          <ui:Break sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Break_1" />
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_14" Message="[&quot;Zeile: &quot; &amp; strRowText]" />
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_15" Message="[&quot;Spalten: &quot; &amp; arrColumns.Length.ToString]" />
+                          <If Condition="[arrColumns.Length &gt;= 25 AndAlso&#xA;Not String.IsNullOrWhiteSpace(arrColumns(7)) AndAlso&#xA;arrColumns(8).Trim.Equals(&quot;identifiziert&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(11).Trim.Equals(&quot;A&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(18).Trim.Equals(&quot;noch nicht übernommen&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;arrColumns(24).Trim.Equals(&quot;Aktiv&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;Not arrColumns(4).Trim.Equals(&quot;333BS&quot;, StringComparison.OrdinalIgnoreCase) AndAlso&#xA;Not arrColumns(4).Trim.Equals(&quot;332AV&quot;, StringComparison.OrdinalIgnoreCase)]" sap:VirtualizedContainerService.HintSize="451.2,1620.8" sap2010:WorkflowViewState.IdRef="If_7">
+                            <If.Then>
+                              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,828.8" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:String" Name="uiCurrentRow" />
+                                </Sequence.Variables>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_22">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[strID]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[arrColumns(7).Trim]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_16" Message="[&quot;Aktuelle Fallnummer: &quot; &amp; strID]" />
+                                <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,177.6" sap2010:WorkflowViewState.IdRef="NClick_1" InUiElement="[uiRow]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Version="V5" />
+                                <Assign DisplayName="Assign TransactionItem" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="Assign_24">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[out_TransactionItem]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[strID]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:Break sap:VirtualizedContainerService.HintSize="416,52" sap2010:WorkflowViewState.IdRef="Break_1" />
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,658.4" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_17" Message="[&quot;Übersprungen: &quot; &amp; &#xA;If(arrColumns.Length &gt; 5, arrColumns(5).Trim, &quot;?&quot;) &amp;&#xA;&quot; | AZR='&quot; &amp;&#xA;If(arrColumns.Length &gt; 7, arrColumns(7).Trim, &quot;&quot;) &amp;&#xA;&quot;'&quot;]" />
+                                <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,416" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_1" InUiElement="[uiRow]" InteractionMode="HardwareEvents" ScopeIdentifier="cbc85c20-a479-49e3-8762-2017f17cfb83" Shortcuts="[d(hk)][k(Down)][u(hk)]" Version="V5" />
+                              </Sequence>
+                            </If.Else>
+                          </If>
                         </Sequence>
-                      </If.Then>
-                      <If.Else>
-                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,229.6" sap2010:WorkflowViewState.IdRef="Sequence_22">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,169.6" sap2010:WorkflowViewState.IdRef="LogMessage_17" Message="[&quot;Übersprungen: &quot; &amp;&#xA;If(arrColumns.Length &gt; 5, arrColumns(5).Trim, &quot;?&quot;) &amp;&#xA;&quot; | AZR='&quot; &amp;&#xA;If(arrColumns.Length &gt; 7, arrColumns(7).Trim, &quot;&quot;) &amp;&#xA;&quot;'&quot;]" />
-                        </Sequence>
-                      </If.Else>
-                    </If>
-                  </Sequence>
-                </ActivityAction>
-              </ui:ForEach.Body>
-            </ui:ForEach>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                  </ui:ForEach>
+                </Sequence>
+              </ui:CommentOut.Body>
+            </ui:CommentOut>
           </Sequence>
         </ActivityAction>
       </uix:NApplicationCard.Body>
@@ -285,13 +526,10 @@
         </ActivityFunc>
       </uix:NApplicationCard.OCREngine>
       <uix:NApplicationCard.TargetApp>
-        <uix:TargetApp Area="0, 0, 1920, 1032" ContentHash="kc5bxBw1rEKw9FWWwN8i-A" FilePath="C:\akdbprg\okvisa\uniface\uniface_rt\common\bin\uniface.exe" IconBase64="iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGDSURBVFhH1ZUxkoMwDEXduOQKuVLKbbdMSZkDpEyZMi1lypR7NjJfSEQWwtgkMwvFY5gY6b+ADCGE0Dd/TTnP74HsQCfPUEW8hL75idXE39iHRxih7F0KoDiepgElfE1AJGpFygXUhUvUSPgCTtMi7gN4tjZoDl2/cwEEY7KdkByJwGOtQDeE2+YlfC6A8Iqhs6Be2JkAF9WEe8M5FcDBhjmgmdcw4ajCrywsdVg7zgmoH+dAQzAGzRDPgRhr9VYtFaCwNhKTNXyInGAKRw1vzXAzfwISWmzbAud3CH1CcRt1I/VMx+sub0HCkzA0XUZAhoc4sQSHE62S5HACoTcWwCBynUdegD+1SSiT3BEgTTmYgJQTukqAJGQmnEZJuOwCu+6wEQEczIInkEXCS69nPhfAkGHLrggHeQE9cB564GrDeac0980KtIUCeAeAnACHJedFAoxdS5AZEAkTsEReQIYQL5QF5NVdKzEI4KAFsJj54OTAnbAhObYhcOgOdPIfIPsFFxBLdAwfE14AAAAASUVORK5CYII=" InformativeScreenshot="b264e5ecd1bdca50d173988710cfc952.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/iEkZ_-aRVUy3bZAcH1BvCA" Selector="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - S-Umgebung_(RHEL_8) Benutzer: dv.00001246  Datenbank:  (e*' /&gt;" Version="V2">
+        <uix:TargetApp Area="0, 0, 1920, 1032" ContentHash="v9Gr5Ouh4U-YX1JNIC3QUA" FilePath="C:\akdbprg\okvisa\uniface\uniface_rt\common\bin\uniface.exe" IconBase64="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" InformativeScreenshot="14a35a17746ae2d9e54bc89bbe2ef6c9.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/iEkZ_-aRVUy3bZAcH1BvCA" Selector="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - K1 Umgebung Benutzer: dv.00001246  Datenbank:  (e02)  Dat*' /&gt;" Version="V2">
           <uix:TargetApp.Arguments>
             <InArgument x:TypeArguments="x:String" />
           </uix:TargetApp.Arguments>
-          <uix:TargetApp.WorkingDirectory>
-            <InArgument x:TypeArguments="x:String" />
-          </uix:TargetApp.WorkingDirectory>
         </uix:TargetApp>
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>

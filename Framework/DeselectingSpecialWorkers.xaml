@@ -117,19 +117,19 @@
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1192,1691" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap:VirtualizedContainerService.HintSize="788.4000000000001,1688.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Deselecting Special Workers" sap:VirtualizedContainerService.HintSize="558,1668" sap2010:WorkflowViewState.IdRef="Sequence_13">
+    <Sequence DisplayName="Deselecting Special Workers" sap:VirtualizedContainerService.HintSize="555.2,1665.6" sap2010:WorkflowViewState.IdRef="Sequence_13">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="524,175" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign DisplayName="Set Variable Value" sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="Assign_1">
         <Assign.To>
           <OutArgument x:TypeArguments="s:String[]">[str_excludedWorkers]</OutArgument>
         </Assign.To>
@@ -137,19 +137,19 @@
           <InArgument x:TypeArguments="s:String[]">[New String() {"333BS", "332AV"}]</InArgument>
         </Assign.Value>
       </Assign>
-      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="AKDB - K1 Umgebung Benutzer dv.00001246  Date" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="524,1410" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" ScopeGuid="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V2">
+      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="AKDB - K1 Umgebung Benutzer dv.00001246  Date" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="521.6,1408" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" ScopeGuid="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V2">
         <uix:NApplicationCard.Body>
           <ActivityAction x:TypeArguments="x:Object">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Ausführen" sap:VirtualizedContainerService.HintSize="522,1164" sap2010:WorkflowViewState.IdRef="Sequence_18">
+            <Sequence DisplayName="Ausführen" sap:VirtualizedContainerService.HintSize="520,1162.4" sap2010:WorkflowViewState.IdRef="Sequence_18">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:FindChildren Children="[uiEditFields]" DisplayName="Find Children 'UniMDIForm'" Filter="&lt;wnd cls='Edit'  /&gt;" sap:VirtualizedContainerService.HintSize="488,143" sap2010:WorkflowViewState.IdRef="FindChildren_3" Scope="[FindScope.FIND_DESCENDANTS]">
+              <ui:FindChildren Children="[uiEditFields]" DisplayName="Find Children 'UniMDIForm'" Filter="&lt;wnd cls='Edit'  /&gt;" sap:VirtualizedContainerService.HintSize="486.4,143.2" sap2010:WorkflowViewState.IdRef="FindChildren_3" Scope="[FindScope.FIND_DESCENDANTS]">
                 <ui:FindChildren.Target>
                   <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0cd48da6-9230-4d6f-b670-ec7edf4a7074" InformativeScreenshot="7a05ad4f41c76f0ab1c789d3a17d1179" Selector="&lt;wnd cls='UniMDIForm' title='E02XFIL1  -  Filter' /&gt;">
                     <ui:Target.TimeoutMS>
@@ -161,13 +161,13 @@
                   </ui:Target>
                 </ui:FindChildren.Target>
               </ui:FindChildren>
-              <ui:ForEach x:TypeArguments="ui:UiElement" CurrentIndex="{x:Null}" DisplayName="For Each uiEditField" sap:VirtualizedContainerService.HintSize="488,957" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[uiEditFields]">
+              <ui:ForEach x:TypeArguments="ui:UiElement" CurrentIndex="{x:Null}" DisplayName="For Each uiEditField" sap:VirtualizedContainerService.HintSize="486.4,955.2" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[uiEditFields]">
                 <ui:ForEach.Body>
                   <ActivityAction x:TypeArguments="ui:UiElement">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="ui:UiElement" Name="uiEditField" />
                     </ActivityAction.Argument>
-                    <Sequence DisplayName="Hauptteil" sap:VirtualizedContainerService.HintSize="486,831" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                    <Sequence DisplayName="Hauptteil" sap:VirtualizedContainerService.HintSize="484.8,829.6" sap2010:WorkflowViewState.IdRef="Sequence_19">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:String" Name="strTextout" />
                         <Variable x:TypeArguments="ui:UiElement" Name="Textout" />
@@ -177,21 +177,21 @@
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <uix:NGetText DisplayName="Get Text 'angela.schopferer 353WV…(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,127" sap2010:WorkflowViewState.IdRef="NGetText_3" InUiElement="[uiEditField]" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" TextString="[strTextout]" Version="V5">
+                      <uix:NGetText DisplayName="Get Text 'angela.schopferer 353WV…(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,126.4" sap2010:WorkflowViewState.IdRef="NGetText_3" InUiElement="[uiEditField]" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" TextString="[strTextout]" Version="V5">
                         <uix:NGetText.Target>
                           <uix:TargetAnchorable ContentHash="btOkvO1ov0u8NeKqUNbRZg" DesignTimeRectangle="386, 422, 603, 361" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='UniCanvas' /&gt;" Guid="c71ad4b3-e834-475f-96ab-9a3aa147e190" InformativeScreenshot="a1ba657dc0b2ff2defd0337cf23611c2.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/QyJ3PYe6eUylVmlKBEa_1g" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - K1 Umgebung Benutzer: dv.00001246  Datenbank:  (e02)  Dat*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
                         </uix:NGetText.Target>
                       </uix:NGetText>
-                      <If Condition="[Not String.IsNullOrWhiteSpace(strTextout) AndAlso&#xA;str_excludedWorkers.Any(&#xA;    Function(worker As String) String.Equals(&#xA;        worker.Trim(),&#xA;        strTextout.Trim(),&#xA;        StringComparison.OrdinalIgnoreCase&#xA;    )&#xA;)]" sap:VirtualizedContainerService.HintSize="452,640" sap2010:WorkflowViewState.IdRef="If_5">
+                      <If Condition="[Not String.IsNullOrWhiteSpace(strTextout) AndAlso&#xA;str_excludedWorkers.Any(&#xA;    Function(worker As String) String.Equals(&#xA;        worker.Trim(),&#xA;        strTextout.Trim(),&#xA;        StringComparison.OrdinalIgnoreCase&#xA;    )&#xA;)]" sap:VirtualizedContainerService.HintSize="451.2,639.2" sap2010:WorkflowViewState.IdRef="If_5">
                         <If.Then>
-                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,412" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,411.2" sap2010:WorkflowViewState.IdRef="Sequence_23">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,179" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[strTextout]" />
-                            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,169" sap2010:WorkflowViewState.IdRef="NClick_28" InUiElement="[uiEditField]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V5">
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,178.4" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[strTextout]" />
+                            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,168.8" sap2010:WorkflowViewState.IdRef="NClick_28" InUiElement="[uiEditField]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V5">
                               <uix:NClick.Target>
                                 <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" Guid="2e091b1e-82c8-4bfc-aa76-6532b649c0ee" Version="V6">
                                   <uix:TargetAnchorable.PointOffset>
