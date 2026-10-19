@@ -1,0 +1,258 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="DeselectingSpecialWorkers" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="int_workerCount" Type="InOutArgument(x:Int32)" />
+    <x:Property Name="str_countWorkers" Type="InArgument(x:String)" />
+    <x:Property Name="uiEditFields" Type="InOutArgument(scg:IEnumerable(ui:UiElement))" />
+    <x:Property Name="strTextout" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_arr_excludedWorkers" Type="InArgument(s:String[])" />
+  </x:Members>
+  <this:DeselectingSpecialWorkers.in_Config>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:DeselectingSpecialWorkers.in_Config>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>UiPath.Vision.Core</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Core</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="741.2,2146.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="555.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Start: DeselectingSpecialWorkers&quot;]" />
+    <Sequence DisplayName="Deselecting Special Workers" sap:VirtualizedContainerService.HintSize="555.2,1783.2" sap2010:WorkflowViewState.IdRef="Sequence_13">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="521.6,149.6" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="s:String[]">[in_arr_excludedWorkers]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="s:String[]" xml:space="preserve">[in_Config("rpa021_Excluded_Workers").ToString.
+    Split(";"c).
+    Select(Function(x) x.Trim()).
+    ToArray()]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+      </ui:MultipleAssign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Prepare Abmeldung excluded Workers: &quot; + String.Join(&quot;, &quot;, in_arr_excludedWorkers)]" />
+      <uix:NApplicationCard AttachMode="ByInstance" DisplayName="AKDB - K1 Umgebung Benutzer dv.00001246  Date" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="521.6,1367.2" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" ScopeGuid="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V2">
+        <uix:NApplicationCard.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Ausführen" sap:VirtualizedContainerService.HintSize="520,1121.6" sap2010:WorkflowViewState.IdRef="Sequence_18">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:FindChildren Children="[uiEditFields]" DisplayName="Find Children 'UniMDIForm'" Filter="&lt;wnd cls='Edit'  /&gt;" sap:VirtualizedContainerService.HintSize="486.4,139.2" sap2010:WorkflowViewState.IdRef="FindChildren_3" Scope="[FindScope.FIND_DESCENDANTS]">
+                <ui:FindChildren.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0cd48da6-9230-4d6f-b670-ec7edf4a7074" InformativeScreenshot="7a05ad4f41c76f0ab1c789d3a17d1179" Selector="&lt;wnd cls='UniMDIForm' title='E02XFIL1  -  Filter' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:FindChildren.Target>
+              </ui:FindChildren>
+              <ui:ForEach x:TypeArguments="ui:UiElement" CurrentIndex="{x:Null}" DisplayName="For Each uiEditField" sap:VirtualizedContainerService.HintSize="486.4,922.4" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[uiEditFields]">
+                <ui:ForEach.Body>
+                  <ActivityAction x:TypeArguments="ui:UiElement">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ui:UiElement" Name="uiEditField" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Hauptteil" sap:VirtualizedContainerService.HintSize="484.8,800.8" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:String" Name="strTextout" />
+                        <Variable x:TypeArguments="ui:UiElement" Name="Textout" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <uix:NGetText DisplayName="Get Text 'angela.schopferer 353WV…(1)'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,122.4" sap2010:WorkflowViewState.IdRef="NGetText_3" InUiElement="[uiEditField]" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" TextString="[strTextout]" Version="V5">
+                        <uix:NGetText.Target>
+                          <uix:TargetAnchorable ContentHash="btOkvO1ov0u8NeKqUNbRZg" DesignTimeRectangle="386, 422, 603, 361" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;wnd cls='UniCanvas' /&gt;" Guid="c71ad4b3-e834-475f-96ab-9a3aa147e190" InformativeScreenshot="a1ba657dc0b2ff2defd0337cf23611c2.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/QyJ3PYe6eUylVmlKBEa_1g" ScopeSelectorArgument="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - K1 Umgebung Benutzer: dv.00001246  Datenbank:  (e02)  Dat*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                        </uix:NGetText.Target>
+                      </uix:NGetText>
+                      <If Condition="[Not String.IsNullOrWhiteSpace(strTextout) AndAlso&#xA;in_arr_excludedWorkers.Any(&#xA;    Function(worker As String) String.Equals(&#xA;        worker.Trim(),&#xA;        strTextout.Trim(),&#xA;        StringComparison.OrdinalIgnoreCase&#xA;    )&#xA;)]" sap:VirtualizedContainerService.HintSize="451.2,618.4" sap2010:WorkflowViewState.IdRef="If_5">
+                        <If.Then>
+                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,399.2" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_9" Message="[strTextout]" />
+                            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,164.8" sap2010:WorkflowViewState.IdRef="NClick_28" InUiElement="[uiEditField]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="3ce4deac-8002-4947-97fd-71f271e325c2" Version="V5">
+                              <uix:NClick.Target>
+                                <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" Guid="2e091b1e-82c8-4bfc-aa76-6532b649c0ee" Version="V6">
+                                  <uix:TargetAnchorable.PointOffset>
+                                    <uix:PointOffset X="-200" Y="0" />
+                                  </uix:TargetAnchorable.PointOffset>
+                                </uix:TargetAnchorable>
+                              </uix:NClick.Target>
+                            </uix:NClick>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,89.6" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:ForEach.Body>
+              </ui:ForEach>
+            </Sequence>
+          </ActivityAction>
+        </uix:NApplicationCard.Body>
+        <uix:NApplicationCard.OCREngine>
+          <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+            <ActivityFunc.Argument>
+              <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+            </ActivityFunc.Argument>
+          </ActivityFunc>
+        </uix:NApplicationCard.OCREngine>
+        <uix:NApplicationCard.TargetApp>
+          <uix:TargetApp Area="0, 0, 1920, 1032" ContentHash="c3IT7y7XFU2IlqzvOtPxCQ" FilePath="C:\akdbprg\okvisa\uniface\uniface_rt\common\bin\uniface.exe" IconBase64="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" InformativeScreenshot="2aefe790617756eb0c04bd718663c6f9.png" Reference="VuLLJFwZ6EqDTQSJwwWQ2w/ZJM_Q8s6AUWT207aOKhu8Q" Selector="&lt;wnd app='uniface.exe' cls='UniApplication' isremoteapp='1' title='AKDB - K1 Umgebung Benutzer: dv.00001246  Datenbank:  (e02)  Dat*' /&gt;" Version="V2">
+            <uix:TargetApp.Arguments>
+              <InArgument x:TypeArguments="x:String" />
+            </uix:TargetApp.Arguments>
+            <uix:TargetApp.WorkingDirectory>
+              <InArgument x:TypeArguments="x:String" />
+            </uix:TargetApp.WorkingDirectory>
+          </uix:TargetApp>
+        </uix:NApplicationCard.TargetApp>
+      </uix:NApplicationCard>
+    </Sequence>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="555.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;End: DeselectingSpecialWorkers&quot;]" />
+  </Sequence>
+</Activity>
